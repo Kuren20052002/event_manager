@@ -79,19 +79,17 @@ registration_hour = Hash.new(0)
 registration_day = Hash.new(0)
 
 lines.each do |line|
-  #   id = line[0]
-  #   name = line[:first_name]
-  #
-  #   zipcode = clean_zipcode(line[:zipcode])
-  #
-  #   representatives = representatives_by_zip(zipcode)
-  #
-  #   form_letter = erb.result(binding)
-  #
-  #   generate_form_letter(id, form_letter)
-  time = process_time(line[1])
+  id = line[0]
+  name = line[:first_name]
+  zipcode = clean_zipcode(line[:zipcode])
+  representatives = representatives_by_zip(zipcode)
+  form_letter = erb.result(binding)
+  time = process_time(line[:regdate])
+
   registration_hour[time.hour] += 1
   registration_day[time.wday] += 1
+
+  generate_form_letter(id, form_letter)
 end
 
 peak_registration_hour(registration_hour)
